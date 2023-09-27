@@ -6,6 +6,8 @@ create procedure ps_NPICTRL_Calculate
 )
 as
 begin
+	declare @StartTime datetime2 = getdate();
+
 	declare 
 		@MainPieId int,
 		@SecondPieId int;
@@ -169,4 +171,7 @@ begin
 	end;
 
 	select top 1 @Rez = PI_VAL from PI_PILE where PIE_ID = @MainPieId order by PI_ORDER;
+	declare @EndTime datetime2 = getdate();
+	select datediff(ms, @StartTime, @EndTime) as ' EXEC TIME (in ms)';
+	select datediff(ns, @StartTime, @EndTime) as ' EXEC TIME (in ns)';
 end;
